@@ -1,7 +1,10 @@
 name: udemy-project4
-on: push
+on: 
+  push:
+    branches:
+      - main
 jobs:
-  Lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       #this make sure our code is download in the runner machine
@@ -10,12 +13,12 @@ jobs:
       #install dependencies
       - name: Install dependencies
         run: npm ci
-      - name: Lint
+      - name: Lint code
         run: npm run lint
       - name: Test code
         run: npm run test 
   Build:
-    needs: Lint
+    needs: test
     runs-on: ubuntu-latest
     steps:
       #this make sure our code is download in the runner machine
