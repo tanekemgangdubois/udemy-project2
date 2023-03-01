@@ -1,0 +1,44 @@
+name: udemy-project4
+on: push
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      #this make sure our code is download in the runner machine
+      - name: Get code
+        uses: actions/checkout@v3
+      #install dependencies
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Test code
+        run: npm run test
+        
+  Build:
+    needs: Lint
+    runs-on: ubuntu-latest
+    steps:
+      #this make sure our code is download in the runner machine
+      - name: Get code
+        uses: actions/checkout@v3
+      #install dependencies
+      - name: Install dependencies
+        run: npm ci
+      - name: build website
+        run: npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: |
+            dist
+            package.json
+  Deploy:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy code
+        run: echo "deploying...."
+    
+ 
