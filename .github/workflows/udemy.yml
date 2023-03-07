@@ -25,6 +25,8 @@ jobs:
             package.json
       - name: deploy code
         run: echo "deploying...."
+      - name: the end 
+        run: echo "End"
     
  
 
